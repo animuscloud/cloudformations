@@ -1,0 +1,46 @@
+{
+  "AWSTemplateFormatVersion" : "2010-09-09",
+
+  "Description" : " ",
+
+  "Resources" : {
+   "SimpleConfig" : {
+   "Type" : "AWS::AutoScaling::LaunchConfiguration",
+   "Properties" : {
+      "ImageId" : "ami-60b6c60a",
+      "SecurityGroups" : [ "class_linux" ],
+      "InstanceType" : "t2.micro",
+      "BlockDeviceMappings" : [ {
+            "DeviceName" : "/dev/sdk",
+            "Ebs" : {"VolumeSize" : "10"}
+         }, {
+            "DeviceName" : "/dev/sdc",
+            "VirtualName" : "ephemeral0"
+        } ]
+      }
+    },
+    "MyServerGroup" : {
+     "Type" : "AWS::AutoScaling::AutoScalingGroup",
+    "Properties" : {
+       "VPCZoneIdentifier" : ["subnet-9a636bed" ,"subnet-001ae03d","subnet-64bced4f"],
+       "LaunchConfigurationName" : { "Ref" : "SimpleConfig" },
+       "MinSize" : "1",
+       "MaxSize" : "3",
+        "Tags" : [
+                  { "Key" : "Name", "Value" : "lab2.cf",
+                     "PropagateAtLaunch" : "true"}, 
+                  { "Key" : "Creator" , "Value" : "tojo@animuscloud.com",
+                      "PropagateAtLaunch" : "true"} 
+                 ] 
+    }
+   }
+  },
+
+  "Outputs" : {
+    "InstanceId" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "MyServerGroup" }
+    }
+  }
+}
+
