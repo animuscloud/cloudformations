@@ -1,28 +1,24 @@
 {
-  "AWSTemplateFormatVersion" : "2010-09-09",
-
-  "Description" : "This CF template 
-                   (1) shows how to create a linux ec2 instance
-
-                   ",
-
-  "Resources" : {
-    "EC2Instance" : {
-      "Type" : "AWS::EC2::Instance",
-      "Properties" : {
-        "InstanceType" : "t2.micro",
-        "SecurityGroupIds" : [ "sg-7cff0405" ],
-        "KeyName" : "tj",
-        "ImageId" : "ami-60b6c60a"
+   "AWSTemplateFormatVersion":"2010-09-09",
+   "Resources":{
+      "EC2Instance":{
+         "Type":"AWS::EC2::Instance",
+         "Properties":{
+            "InstanceType":"t2.micro",
+            "SecurityGroupIds":[
+               "sg-7cff0405"
+            ],
+            "KeyName":"tj",
+            "ImageId":"ami-60b6c60a"
+         }
       }
-    }
-  },
-
-  "Outputs" : {
-    "InstanceId" : {
-      "Description" : "InstanceId of the newly created EC2 instance",
-      "Value" : { "Ref" : "EC2Instance" }
-    }
-  }
+   },
+   "Outputs":{
+      "InstanceId":{
+         "Description":"InstanceId of the newly created EC2 instance",
+         "Value":{
+            "Ref":"EC2Instance"
+         }
+      }
+   }
 }
-
